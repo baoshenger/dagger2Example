@@ -1,30 +1,45 @@
 package com.evia.dagger2sampleapplication.clicker;
 
+import android.support.annotation.Nullable;
+
+import com.evia.dagger2sampleapplication.ClickStorage;
+import com.evia.dagger2sampleapplication.Logger;
+
 import java.util.HashSet;
 
 /**
+ *  Base class with common logic for {@link ClickCounterObservable} specific implementations
+ *
  * Created by Evgenii Iashin on 25.01.18.
  */
-
 public class BaseClickObservable implements ClickCounterObservable {
 
     private final HashSet<ClickObserver> observers = new HashSet<>();
 
     private final String counterName;
-    protected int clickCount;
+    private int clickCount;
+    @Nullable
+    private ClickStorage clickStorage;
+    private Logger logger;
 
-    public BaseClickObservable(String counterName, int initialCount) {
+    public BaseClickObservable(String counterName, @Nullable ClickStorage clickStorage, Logger logger) {
         this.counterName = counterName;
-        clickCount = initialCount;
-    }
+        this.clickStorage = clickStorage;
+        this.logger = logger;
 
-    public BaseClickObservable(String counterName) {
-        this(counterName, 0);
+        if (clickStorage != null) {
+            clickCount = clickStorage.getClicks();
+        }
+        logger.log(String.format("[%s] init", counterName));
     }
 
     @Override
     public void countClick() {
         clickCount++;
+        if (clickStorage != null) {
+            clickStorage.storeClicks(clickCount);
+        }
+        logger.log(String.format("[%s] %s", counterName, clickCount));
         notifyObservers();
     }
 

@@ -10,6 +10,12 @@ import android.widget.TextView;
 
 import com.evia.dagger2sampleapplication.clicker.BaseClickObservable;
 import com.evia.dagger2sampleapplication.clicker.ClickObserver;
+import com.evia.dagger2sampleapplication.scope.FragmentScope;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import dagger.android.AndroidInjection;
 
 /**
  * Created by Evgenii Iashin on 25.01.18.
@@ -17,15 +23,16 @@ import com.evia.dagger2sampleapplication.clicker.ClickObserver;
 
 public class MainFragment extends Fragment {
 
-    private FragmentClickCounter fragmentClickCounter;
+    @Inject
+    @Named("fragment")
+    BaseClickObservable fragmentClickCounter;
 
     private TextView fragmentCounterView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        fragmentClickCounter = new FragmentClickCounter(this);
+        AndroidInjection.inject(this);
     }
 
     @Override
@@ -40,12 +47,7 @@ public class MainFragment extends Fragment {
         fragmentClickCounter.addObserver(clickObserver);
     }
 
-    private ClickObserver clickObserver = new ClickObserver() {
-        @Override
-        public void onClick(String state) {
-            fragmentCounterView.setText(state);
-        }
-    };
+    private ClickObserver clickObserver = state -> fragmentCounterView.setText(state);
 
     @Nullable
     @Override
@@ -58,20 +60,21 @@ public class MainFragment extends Fragment {
         return root;
     }
 
+    @FragmentScope
     public static class FragmentClickCounter extends BaseClickObservable {
 
-        private final Fragment fragment;
+        private final BaseClickObservable activityClickCounter;
 
-        public FragmentClickCounter(Fragment fragment) {
-            super("Fragment");
-            this.fragment = fragment;
+        @Inject
+        public FragmentClickCounter(@Named("activity") BaseClickObservable activityClickCounter, Logger logger) {
+            super("Fragment", null, logger);
+            this.activityClickCounter = activityClickCounter;
         }
 
         @Override
         public void countClick() {
             super.countClick();
-            //bad way
-            ((MainActivity)fragment.getActivity()).getActivityClickCounter().countClick();
+            activityClickCounter.countClick();
         }
     }
 }
