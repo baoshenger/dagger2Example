@@ -27,8 +27,12 @@ public class SampleApplication extends Application implements HasActivityInjecto
     public void onCreate() {
         super.onCreate();
 
-        ApplicationComponent applicationComponent = DaggerApplicationComponent.builder().addAppContext(this).build();
+        ApplicationComponent applicationComponent = createApplicationComponent();
         applicationComponent.inject(this);
+    }
+
+    protected ApplicationComponent createApplicationComponent() {
+        return DaggerApplicationComponent.builder().addAppContext(this).build();
     }
 
     @Override

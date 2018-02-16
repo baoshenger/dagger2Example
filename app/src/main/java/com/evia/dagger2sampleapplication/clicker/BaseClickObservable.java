@@ -1,6 +1,7 @@
 package com.evia.dagger2sampleapplication.clicker;
 
 import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 
 import com.evia.dagger2sampleapplication.ClickStorage;
 import com.evia.dagger2sampleapplication.Logger;
@@ -17,7 +18,8 @@ public class BaseClickObservable implements ClickCounterObservable {
     private final HashSet<ClickObserver> observers = new HashSet<>();
 
     private final String counterName;
-    private int clickCount;
+    @VisibleForTesting
+    public int clickCount;
     @Nullable
     private ClickStorage clickStorage;
     private Logger logger;
@@ -49,7 +51,8 @@ public class BaseClickObservable implements ClickCounterObservable {
         observer.onClick(getState());
     }
 
-    private String getState() {
+    @VisibleForTesting
+    public String getState() {
         return String.format("%s state : %s clicks", counterName, clickCount);
     }
 

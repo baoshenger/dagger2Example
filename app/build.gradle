@@ -8,7 +8,8 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        //needed to mock application class
+        testInstrumentationRunner "com.evia.dagger2sampleapplication.TestRunner"
     }
     buildTypes {
         release {
@@ -36,8 +37,15 @@ dependencies {
     //libraries for dependency injection
     compile "com.google.dagger:dagger:$daggerVersion"
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+    androidTestCompile "com.google.dagger:dagger:$daggerVersion"
+    androidTestAnnotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
 
     //Dagger-Android
     compile "com.google.dagger:dagger-android:$daggerVersion"
     annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
+
+    androidTestCompile "com.google.dagger:dagger-android:$daggerVersion"
+    androidTestAnnotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
+
+    androidTestCompile 'org.mockito:mockito-android:2.13.0'
 }
