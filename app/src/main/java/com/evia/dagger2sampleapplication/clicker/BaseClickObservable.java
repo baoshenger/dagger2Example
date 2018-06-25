@@ -3,7 +3,6 @@ package com.evia.dagger2sampleapplication.clicker;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 
-import com.evia.dagger2sampleapplication.ClickStorage;
 import com.evia.dagger2sampleapplication.Logger;
 
 import java.util.HashSet;
@@ -36,13 +35,14 @@ public class BaseClickObservable implements ClickCounterObservable {
     }
 
     @Override
-    public void countClick() {
+    public int countClick() {
         clickCount++;
         if (clickStorage != null) {
             clickStorage.storeClicks(clickCount);
         }
         logger.log(String.format("[%s] %s", counterName, clickCount));
         notifyObservers();
+        return clickCount;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.evia.dagger2sampleapplication;
+package com.evia.dagger2sampleapplication.clicker;
 
 /**
  *  Clicks storage

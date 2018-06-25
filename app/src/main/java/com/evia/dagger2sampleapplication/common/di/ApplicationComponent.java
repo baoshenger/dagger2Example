@@ -1,4 +1,4 @@
-package com.evia.dagger2sampleapplication.di;
+package com.evia.dagger2sampleapplication.common.di;
 
 import android.app.Application;
 

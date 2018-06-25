@@ -24,7 +24,8 @@ android {
     }
 }
 
-def daggerVersion = '2.14.1'
+def daggerVersion = '2.16'
+def architectureComponents = '1.1.1'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -42,7 +43,11 @@ dependencies {
 
     //Dagger-Android
     compile "com.google.dagger:dagger-android:$daggerVersion"
+    compile "com.google.dagger:dagger-android-support:$daggerVersion"
     annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
+
+    //architecture components
+    implementation "android.arch.lifecycle:extensions:$architectureComponents"
 
     androidTestCompile "com.google.dagger:dagger-android:$daggerVersion"
     androidTestAnnotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"

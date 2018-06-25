@@ -7,7 +7,7 @@ package com.evia.dagger2sampleapplication.clicker;
  */
 public interface ClickCounterObservable {
 
-    void countClick();
+    int countClick();
 
     void addObserver(ClickObserver observer);
     void removeObserver(ClickObserver observer);

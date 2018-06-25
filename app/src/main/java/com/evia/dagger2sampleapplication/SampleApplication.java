@@ -5,8 +5,9 @@ import android.app.Application;
 import android.content.SharedPreferences;
 
 import com.evia.dagger2sampleapplication.clicker.BaseClickObservable;
-import com.evia.dagger2sampleapplication.di.ApplicationComponent;
-import com.evia.dagger2sampleapplication.di.DaggerApplicationComponent;
+import com.evia.dagger2sampleapplication.clicker.ClickStorage;
+import com.evia.dagger2sampleapplication.common.di.ApplicationComponent;
+import com.evia.dagger2sampleapplication.common.di.DaggerApplicationComponent;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

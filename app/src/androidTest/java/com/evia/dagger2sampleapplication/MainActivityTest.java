@@ -7,7 +7,11 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.evia.dagger2sampleapplication.clicker.BaseClickObservable;
-import com.evia.dagger2sampleapplication.di.ApplicationComponent;
+import com.evia.dagger2sampleapplication.clicker.acitivity.ActivityClickCounter;
+import com.evia.dagger2sampleapplication.clicker.acitivity.MainActivity;
+import com.evia.dagger2sampleapplication.clicker.fragment.FragmentClickCounter;
+import com.evia.dagger2sampleapplication.clicker.fragment.MainFragment;
+import com.evia.dagger2sampleapplication.common.di.ApplicationComponent;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -110,8 +114,8 @@ public class MainActivityTest {
         MockApplication context = (MockApplication) InstrumentationRegistry.getTargetContext().getApplicationContext();
 
         SampleApplication.GlobalClickCounter globalClickCounter = mock(SampleApplication.GlobalClickCounter.class);
-        MainActivity.ActivityClickCounter activityClickCounter = mock(MainActivity.ActivityClickCounter.class);
-        MainFragment.FragmentClickCounter fragmentClickCounter = mock(MainFragment.FragmentClickCounter.class);
+        ActivityClickCounter activityClickCounter = mock(ActivityClickCounter.class);
+        FragmentClickCounter fragmentClickCounter = mock(FragmentClickCounter.class);
 
         TestApplicationComponentDirectInject testApplicationComponent = DaggerMainActivityTest_TestApplicationComponentDirectInject.builder()
                 .addAppContext(context)

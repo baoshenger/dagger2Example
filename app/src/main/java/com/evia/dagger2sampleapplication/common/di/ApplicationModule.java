@@ -1,14 +1,14 @@
-package com.evia.dagger2sampleapplication.di;
+package com.evia.dagger2sampleapplication.common.di;
 
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.evia.dagger2sampleapplication.Logger;
-import com.evia.dagger2sampleapplication.MainActivity;
+import com.evia.dagger2sampleapplication.clicker.acitivity.MainActivity;
 import com.evia.dagger2sampleapplication.SampleApplication;
 import com.evia.dagger2sampleapplication.clicker.BaseClickObservable;
-import com.evia.dagger2sampleapplication.scope.ActivityScope;
+import com.evia.dagger2sampleapplication.common.di.scope.ActivityScope;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -23,7 +23,7 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * Created by Evgenii Iashin on 26.01.18.
  */
-@Module
+@Module(includes = ViewModelsModule.class)
 public abstract class ApplicationModule {
 
     @Binds

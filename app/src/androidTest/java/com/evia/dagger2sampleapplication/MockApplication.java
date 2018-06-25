@@ -1,6 +1,6 @@
 package com.evia.dagger2sampleapplication;
 
-import com.evia.dagger2sampleapplication.di.ApplicationComponent;
+import com.evia.dagger2sampleapplication.common.di.ApplicationComponent;
 
 /**
  * Created by Evgenii Iashin on 05.02.18.

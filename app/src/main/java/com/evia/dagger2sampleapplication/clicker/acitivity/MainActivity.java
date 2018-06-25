@@ -1,14 +1,13 @@
-package com.evia.dagger2sampleapplication;
+package com.evia.dagger2sampleapplication.clicker.acitivity;
 
-import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import com.evia.dagger2sampleapplication.R;
 import com.evia.dagger2sampleapplication.clicker.BaseClickObservable;
 import com.evia.dagger2sampleapplication.clicker.ClickObserver;
-import com.evia.dagger2sampleapplication.scope.ActivityScope;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -16,9 +15,9 @@ import javax.inject.Named;
 import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
-import dagger.android.HasFragmentInjector;
+import dagger.android.support.HasSupportFragmentInjector;
 
-public class MainActivity extends AppCompatActivity implements HasFragmentInjector{
+public class MainActivity extends AppCompatActivity implements HasSupportFragmentInjector {
 
     private TextView globalCounterView;
     private TextView activityCounterView;
@@ -68,48 +67,8 @@ public class MainActivity extends AppCompatActivity implements HasFragmentInject
     private ClickObserver activityClickObserver = state -> activityCounterView.setText(state);
 
     @Override
-    public AndroidInjector<Fragment> fragmentInjector() {
+    public AndroidInjector<Fragment> supportFragmentInjector() {
         return dispatchingAndroidInjector;
     }
 
-    @ActivityScope
-    public static class ActivityClickCounter extends BaseClickObservable {
-
-        private final BaseClickObservable globalClickCounter;
-
-        @Inject
-        public ActivityClickCounter(ActivityClickStorage activityClickStorage, @Named("global") BaseClickObservable globalClickCounter, Logger logger) {
-            super("Activity", activityClickStorage, logger);
-            this.globalClickCounter = globalClickCounter;
-        }
-
-        @Override
-        public void countClick() {
-            super.countClick();
-            globalClickCounter.countClick();
-        }
-    }
-
-    @ActivityScope
-    public static class ActivityClickStorage implements ClickStorage {
-
-        private static final String COUNT_EXTRA = "COUNT";
-
-        private final Activity activity;
-
-        @Inject
-        public ActivityClickStorage(Activity activity) {
-            this.activity = activity;
-        }
-
-        @Override
-        public void storeClicks(int clicks) {
-            activity.getIntent().putExtra(COUNT_EXTRA, clicks);
-        }
-
-        @Override
-        public int getClicks() {
-            return activity.getIntent() != null ? activity.getIntent().getIntExtra(COUNT_EXTRA, 0) : 0;
-        }
-    }
 }

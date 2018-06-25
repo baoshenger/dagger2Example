@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.evia.dagger2sampleapplication.MainActivity">
+    tools:context="com.evia.dagger2sampleapplication.clicker.acitivity.MainActivity">
 
     <TextView
         android:id="@+id/global_counter"
@@ -34,7 +34,7 @@
         android:id="@+id/fragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:name="com.evia.dagger2sampleapplication.MainFragment"
+        android:name="com.evia.dagger2sampleapplication.clicker.fragment.MainFragment"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
