@@ -6,11 +6,12 @@ import android.support.test.espresso.Espresso;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.evia.dagger2sampleapplication.clicker.BaseClickObservable;
+import com.evia.dagger2sampleapplication.clicker.BaseClickCounter;
 import com.evia.dagger2sampleapplication.clicker.acitivity.ActivityClickCounter;
 import com.evia.dagger2sampleapplication.clicker.acitivity.MainActivity;
 import com.evia.dagger2sampleapplication.clicker.fragment.FragmentClickCounter;
 import com.evia.dagger2sampleapplication.clicker.fragment.MainFragment;
+import com.evia.dagger2sampleapplication.clicker.global.GlobalClickCounter;
 import com.evia.dagger2sampleapplication.common.di.ApplicationComponent;
 
 import org.junit.Before;
@@ -68,13 +69,13 @@ public class MainActivityTest {
             Builder addAppContext(Application application);
 
             @BindsInstance
-            Builder addGlobalCounter(@Named("global") BaseClickObservable clickCounter);
+            Builder addGlobalCounter(@Named("global") BaseClickCounter clickCounter);
 
             @BindsInstance
-            Builder addActivityCounter(@Named("activity") BaseClickObservable clickCounter);
+            Builder addActivityCounter(@Named("activity") BaseClickCounter clickCounter);
 
             @BindsInstance
-            Builder addFragmentCounter(@Named("fragment") BaseClickObservable clickCounter);
+            Builder addFragmentCounter(@Named("fragment") BaseClickCounter clickCounter);
 
             TestApplicationComponentDirectInject build();
         }
@@ -93,7 +94,7 @@ public class MainActivityTest {
 //    public static abstract class TestApplicationModule extends ApplicationModule {
 //        @Binds
 //        @Named("global")
-//        abstract BaseClickObservable bindGlovalClickCounter(SampleApplication.GlobalClickCounter globalClickCounter);
+//        abstract BaseClickCounter bindGlovalClickCounter(SampleApplication.GlobalClickCounter globalClickCounter);
 //
 //        @Binds
 //        abstract SharedPreferences provideSharedPreferences(MockSharedPreferences mockSharedPreferences);
@@ -113,7 +114,7 @@ public class MainActivityTest {
     public void setUp() throws Exception {
         MockApplication context = (MockApplication) InstrumentationRegistry.getTargetContext().getApplicationContext();
 
-        SampleApplication.GlobalClickCounter globalClickCounter = mock(SampleApplication.GlobalClickCounter.class);
+        GlobalClickCounter globalClickCounter = mock(GlobalClickCounter.class);
         ActivityClickCounter activityClickCounter = mock(ActivityClickCounter.class);
         FragmentClickCounter fragmentClickCounter = mock(FragmentClickCounter.class);
 
@@ -137,12 +138,12 @@ public class MainActivityTest {
         Espresso.onView(withId(R.id.fragment)).check(matches(withText("Fragment state : 0 clicks")));
 
 
-        //first click
+        //first clickActivityClicker
         Espresso.onView(withId(R.id.global_counter)).perform(click()).check(matches(withText("Global state : 1 clicks")));
         Espresso.onView(withId(R.id.activity_counter)).check(matches(withText("Activity state : 0 clicks")));
         Espresso.onView(withId(R.id.fragment)).check(matches(withText("Fragment state : 0 clicks")));
 
-        //second click
+        //second clickActivityClicker
         Espresso.onView(withId(R.id.global_counter)).perform(click()).check(matches(withText("Global state : 2 clicks")));
         Espresso.onView(withId(R.id.activity_counter)).check(matches(withText("Activity state : 0 clicks")));
         Espresso.onView(withId(R.id.fragment)).check(matches(withText("Fragment state : 0 clicks")));
@@ -157,12 +158,12 @@ public class MainActivityTest {
         Espresso.onView(withId(R.id.activity_counter)).check(matches(withText("Activity state : 0 clicks")));
         Espresso.onView(withId(R.id.fragment)).check(matches(withText("Fragment state : 0 clicks")));
 
-        //first click
+        //first clickActivityClicker
         Espresso.onView(withId(R.id.activity_counter)).perform(click()).check(matches(withText("Activity state : 1 clicks")));
         Espresso.onView(withId(R.id.global_counter)).check(matches(withText("Global state : 1 clicks")));
         Espresso.onView(withId(R.id.fragment)).check(matches(withText("Fragment state : 0 clicks")));
 
-        //second click
+        //second clickActivityClicker
         Espresso.onView(withId(R.id.activity_counter)).perform(click()).check(matches(withText("Activity state : 2 clicks")));
         Espresso.onView(withId(R.id.global_counter)).check(matches(withText("Global state : 2 clicks")));
         Espresso.onView(withId(R.id.fragment)).check(matches(withText("Fragment state : 0 clicks")));
@@ -177,12 +178,12 @@ public class MainActivityTest {
         Espresso.onView(withId(R.id.activity_counter)).check(matches(withText("Activity state : 0 clicks")));
         Espresso.onView(withId(R.id.fragment)).check(matches(withText("Fragment state : 0 clicks")));
 
-        //first click
+        //first clickActivityClicker
         Espresso.onView(withId(R.id.fragment)).perform(click()).check(matches(withText("Fragment state : 1 clicks")));
         Espresso.onView(withId(R.id.activity_counter)).check(matches(withText("Activity state : 1 clicks")));
         Espresso.onView(withId(R.id.global_counter)).check(matches(withText("Global state : 1 clicks")));
 
-        //second click
+        //second clickActivityClicker
         Espresso.onView(withId(R.id.fragment)).perform(click()).check(matches(withText("Fragment state : 2 clicks")));
         Espresso.onView(withId(R.id.activity_counter)).check(matches(withText("Activity state : 2 clicks")));
         Espresso.onView(withId(R.id.global_counter)).check(matches(withText("Global state : 2 clicks")));

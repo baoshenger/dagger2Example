@@ -5,16 +5,12 @@ import android.support.annotation.VisibleForTesting;
 
 import com.evia.dagger2sampleapplication.Logger;
 
-import java.util.HashSet;
-
 /**
- *  Base class with common logic for {@link ClickCounterObservable} specific implementations
+ *  Base class with common logic for {@link ClickCounter} specific implementations
  *
  * Created by Evgenii Iashin on 25.01.18.
  */
-public class BaseClickObservable implements ClickCounterObservable {
-
-    private final HashSet<ClickObserver> observers = new HashSet<>();
+public class BaseClickCounter implements ClickCounter {
 
     private final String counterName;
     @VisibleForTesting
@@ -23,7 +19,7 @@ public class BaseClickObservable implements ClickCounterObservable {
     private ClickStorage clickStorage;
     private Logger logger;
 
-    public BaseClickObservable(String counterName, @Nullable ClickStorage clickStorage, Logger logger) {
+    public BaseClickCounter(String counterName, @Nullable ClickStorage clickStorage, Logger logger) {
         this.counterName = counterName;
         this.clickStorage = clickStorage;
         this.logger = logger;
@@ -36,35 +32,16 @@ public class BaseClickObservable implements ClickCounterObservable {
 
     @Override
     public int countClick() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         clickCount++;
         if (clickStorage != null) {
             clickStorage.storeClicks(clickCount);
         }
         logger.log(String.format("[%s] %s", counterName, clickCount));
-        notifyObservers();
         return clickCount;
-    }
-
-    @Override
-    public void addObserver(ClickObserver observer) {
-        observers.add(observer);
-        observer.onClick(getState());
-    }
-
-    @VisibleForTesting
-    public String getState() {
-        return String.format("%s state : %s clicks", counterName, clickCount);
-    }
-
-    @Override
-    public void removeObserver(ClickObserver observer) {
-        observers.remove(observer);
-    }
-
-    private void notifyObservers() {
-        String state = getState();
-        for (ClickObserver observer : observers) {
-            observer.onClick(state);
-        }
     }
 }

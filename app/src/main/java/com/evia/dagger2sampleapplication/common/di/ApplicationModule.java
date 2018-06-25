@@ -5,15 +5,13 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.evia.dagger2sampleapplication.Logger;
+import com.evia.dagger2sampleapplication.clicker.acitivity.ActivityModule;
 import com.evia.dagger2sampleapplication.clicker.acitivity.MainActivity;
-import com.evia.dagger2sampleapplication.SampleApplication;
-import com.evia.dagger2sampleapplication.clicker.BaseClickObservable;
+import com.evia.dagger2sampleapplication.clicker.global.GlobalModule;
 import com.evia.dagger2sampleapplication.common.di.scope.ActivityScope;
 
-import javax.inject.Named;
 import javax.inject.Singleton;
 
-import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 import dagger.android.ContributesAndroidInjector;
@@ -23,12 +21,8 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * Created by Evgenii Iashin on 26.01.18.
  */
-@Module(includes = ViewModelsModule.class)
+@Module(includes = {ViewModelsModule.class, GlobalModule.class})
 public abstract class ApplicationModule {
-
-    @Binds
-    @Named("global")
-    abstract BaseClickObservable bindGlovalClickCounter(SampleApplication.GlobalClickCounter globalClickCounter);
 
     @Provides
     static SharedPreferences provideSharedPreferences(Application application) {
