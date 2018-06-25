@@ -19,6 +19,8 @@ import dagger.android.ContributesAndroidInjector;
 import dagger.multibindings.IntoMap;
 
 /**
+ *  Module for dependencies available on the activity level
+ *
  * Created by Evgenii Iashin on 26.01.18.
  */
 @Module
@@ -33,7 +35,7 @@ public abstract class ActivityModule {
     @Provides
     @Named("activity")
     static ClickerResultMapper provideMapper() {
-        return new ClickerResultMapper("Activity");
+        return new ClickerResultMapper<Integer, Void>("Activity");
     }
 
     @Binds

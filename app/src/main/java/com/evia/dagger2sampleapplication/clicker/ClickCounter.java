@@ -3,7 +3,7 @@ package com.evia.dagger2sampleapplication.clicker;
 import android.support.annotation.WorkerThread;
 
 /**
- *  Observable for user clicks
+ *  User clicks counter interface
  *
  * Created by Evgenii Iashin on 25.01.18.
  */

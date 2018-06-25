@@ -6,39 +6,60 @@
     android:layout_height="match_parent"
     tools:context="com.evia.dagger2sampleapplication.clicker.acitivity.MainActivity">
 
+
     <TextView
         android:id="@+id/global_counter"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="Hello World!"
-        android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/activity_counter"
+        android:background="#53E5FC"
+        android:textSize="30sp"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/activity_counter"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="Hello World!"
-        android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/fragment"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/global_counter" />
-
-    <fragment
-        android:id="@+id/fragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:name="com.evia.dagger2sampleapplication.clicker.fragment.MainFragment"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="#03A9F4"
+        android:textSize="30sp"
+        android:gravity="center_horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_counter" />
+        app:layout_constraintTop_toBottomOf="@+id/guideline"/>
+
+    <fragment
+        android:id="@+id/fragment"
+        android:name="com.evia.dagger2sampleapplication.clicker.fragment.MainFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline2" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.33"  />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.66"  />
 
 </android.support.constraint.ConstraintLayout>

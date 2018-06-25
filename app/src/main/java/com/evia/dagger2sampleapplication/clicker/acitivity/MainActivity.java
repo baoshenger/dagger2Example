@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.evia.dagger2sampleapplication.R;
+import com.evia.dagger2sampleapplication.common.UiHelper;
+import com.evia.dagger2sampleapplication.common.usecase.CallStatus;
 
 import javax.inject.Inject;
 
@@ -36,11 +38,20 @@ public class MainActivity extends AppCompatActivity implements HasSupportFragmen
 
         TextView globalCounterView = findViewById(R.id.global_counter);
         globalCounterView.setOnClickListener(v -> viewModel.clickGlobalClicker());
-        viewModel.globalClickerText.observe(this, globalCounterView::setText);
+        viewModel.globalClickLiveDataMapped.observe(this, status -> handleCallState(globalCounterView, status));
 
-        TextView  activityCounterView = findViewById(R.id.activity_counter);
+        TextView activityCounterView = findViewById(R.id.activity_counter);
         activityCounterView.setOnClickListener(v -> viewModel.clickActivityClicker());
-        viewModel.activityClickerText.observe(this, activityCounterView::setText);
+        viewModel.activityClickLiveDataMapped.observe(this, status -> handleCallState(activityCounterView, status));
+    }
+
+    private void handleCallState(TextView counterView, CallStatus<String, Void> status) {
+        counterView.setText(status.getCurrentState());
+        if (status instanceof CallStatus.Loading) {
+            UiHelper.startLoading(counterView);
+        } else {
+            UiHelper.stopLoading(counterView);
+        }
     }
 
     @Override

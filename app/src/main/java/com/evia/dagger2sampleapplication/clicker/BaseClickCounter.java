@@ -2,8 +2,9 @@ package com.evia.dagger2sampleapplication.clicker;
 
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
+import android.support.annotation.WorkerThread;
 
-import com.evia.dagger2sampleapplication.Logger;
+import com.evia.dagger2sampleapplication.common.Logger;
 
 /**
  *  Base class with common logic for {@link ClickCounter} specific implementations
@@ -31,11 +32,13 @@ public class BaseClickCounter implements ClickCounter {
     }
 
     @Override
+    @WorkerThread
     public int countClick() {
         try {
+            //like we're doing a long running operation
             Thread.sleep(1000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            //ignore
         }
         clickCount++;
         if (clickStorage != null) {

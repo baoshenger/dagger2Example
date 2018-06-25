@@ -11,6 +11,8 @@ import dagger.Component;
 import dagger.android.AndroidInjectionModule;
 
 /**
+ *  Main component of the App that represents the main dependency graph
+ *
  * Created by Evgenii Iashin on 26.01.18.
  */
 @Singleton

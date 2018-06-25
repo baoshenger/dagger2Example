@@ -14,6 +14,8 @@ import dagger.Provides;
 import dagger.multibindings.IntoMap;
 
 /**
+ *  Module for dependencies available on the fragment level
+ *
  * Created by Evgenii Iashin on 02.02.18.
  */
 @Module

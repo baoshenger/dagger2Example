@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.evia.dagger2sampleapplication.R;
+import com.evia.dagger2sampleapplication.common.UiHelper;
+import com.evia.dagger2sampleapplication.common.usecase.CallStatus;
 
 import javax.inject.Inject;
 
@@ -42,14 +44,22 @@ public class MainFragment extends Fragment {
 
         fragmentCounterView = root.findViewById(R.id.fragment_counter);
         fragmentCounterView.setOnClickListener(v -> mainFragmentViewModel.click());
-
         return root;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mainFragmentViewModel.clickerText.observe(this, fragmentCounterView::setText);
+        mainFragmentViewModel.fragmentClickLiveDataMapped.observe(this, this::handleCallStatus);
+    }
+
+    private void handleCallStatus(CallStatus<String, Void> status) {
+        fragmentCounterView.setText(status.getCurrentState());
+        if (status instanceof CallStatus.Loading) {
+            UiHelper.startLoading(fragmentCounterView);
+        } else {
+            UiHelper.stopLoading(fragmentCounterView);
+        }
     }
 
 }
