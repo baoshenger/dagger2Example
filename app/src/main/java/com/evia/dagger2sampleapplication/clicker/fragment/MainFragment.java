@@ -15,7 +15,7 @@ public class MainFragment extends BasicFragmentWithPresentationModel<MainFragmen
 
     @Override
     protected void bindPresentationModelToViewModel() {
-        viewModel.fragmentClickLiveDataMapped.observe(this, presentationModel);
+        viewModel.fragmentClickLiveDataMapped.observe(this, presentationModel.observer);
     }
 
 }

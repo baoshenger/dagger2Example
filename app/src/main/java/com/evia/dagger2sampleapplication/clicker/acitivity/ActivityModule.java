@@ -2,12 +2,14 @@ package com.evia.dagger2sampleapplication.clicker.acitivity;
 
 import android.app.Activity;
 import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProviders;
 
 import com.evia.dagger2sampleapplication.clicker.ClickerResultMapper;
 import com.evia.dagger2sampleapplication.clicker.ClickerUseCase;
 import com.evia.dagger2sampleapplication.clicker.fragment.FragmentModule;
 import com.evia.dagger2sampleapplication.clicker.fragment.MainFragment;
 import com.evia.dagger2sampleapplication.common.di.scope.FragmentScope;
+import com.evia.dagger2sampleapplication.common.viewmodel.ViewModelFactory;
 import com.evia.dagger2sampleapplication.common.viewmodel.ViewModelProviderKey;
 
 import javax.inject.Named;
@@ -36,6 +38,12 @@ public abstract class ActivityModule {
     @Named("activity")
     static ClickerResultMapper provideMapper() {
         return new ClickerResultMapper<Integer, Void>("Activity");
+    }
+
+    @Provides
+    @Named("retainedModel")
+    static ActivityViewModel provideViewModel(MainActivity activity, ViewModelFactory factory) {
+        return ViewModelProviders.of(activity, factory).get(ActivityViewModel.class);
     }
 
     @Binds

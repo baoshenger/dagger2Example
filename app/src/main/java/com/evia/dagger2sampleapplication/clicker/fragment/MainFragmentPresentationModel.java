@@ -1,7 +1,6 @@
 package com.evia.dagger2sampleapplication.clicker.fragment;
 
 import android.arch.lifecycle.Observer;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.evia.dagger2sampleapplication.R;
@@ -17,13 +16,19 @@ import javax.inject.Named;
 /**
  * Created by Evgenii Iashin on 28.06.18.
  */
-public class MainFragmentPresentationModel extends PresentationModel<MainFragmentViewModel> implements Observer<CallStatus<String, Void>> {
+public class MainFragmentPresentationModel extends PresentationModel<MainFragmentViewModel> {
 
     @Inject
     public MainFragmentPresentationModel(@Named("retainedModel") MainFragmentViewModel viewModel, GenericModelSupport genericModelSupport, ModelBinder.BindingOnPropertyChangedListener onPropertyChangedListener) {
         super(viewModel, genericModelSupport, onPropertyChangedListener);
         Log.i(getClass().getSimpleName(), "instance created");
     }
+
+    public Observer<CallStatus<String, Void>> observer = status -> {
+        this.status = status;
+        notifyDataChanged(PROP_COUNTER_PROGRESS);
+        notifyDataChanged(PROP_COUNTER_TEXT);
+    };
 
     private static final String PROP_COUNTER_PROGRESS = "PROP_COUNTER_PROGRESS";
     private static final String PROP_COUNTER_TEXT = "PROP_COUNTER_TEXT";
@@ -44,12 +49,5 @@ public class MainFragmentPresentationModel extends PresentationModel<MainFragmen
     @ModelAutoBinder.BindProgress(id = R.id.fragment_counter, property = PROP_COUNTER_PROGRESS)
     public boolean isProgressVisible() {
         return status instanceof CallStatus.Loading;
-    }
-
-    @Override
-    public void onChanged(@Nullable CallStatus<String, Void> status) {
-        this.status = status;
-        notifyDataChanged(PROP_COUNTER_PROGRESS);
-        notifyDataChanged(PROP_COUNTER_TEXT);
     }
 }
