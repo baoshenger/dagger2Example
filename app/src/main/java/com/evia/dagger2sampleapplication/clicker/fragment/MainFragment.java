@@ -1,65 +1,21 @@
 package com.evia.dagger2sampleapplication.clicker.fragment;
 
-import android.arch.lifecycle.ViewModelProvider;
-import android.arch.lifecycle.ViewModelProviders;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-
 import com.evia.dagger2sampleapplication.R;
-import com.evia.dagger2sampleapplication.common.UiHelper;
-import com.evia.dagger2sampleapplication.common.usecase.CallStatus;
-
-import javax.inject.Inject;
-
-import dagger.android.support.AndroidSupportInjection;
+import com.evia.dagger2sampleapplication.common.presentationmodel.BasicFragmentWithPresentationModel;
 
 /**
  * Created by Evgenii Iashin on 25.01.18.
  */
-public class MainFragment extends Fragment {
-
-    @Inject
-    ViewModelProvider.Factory factory;
-
-    private MainFragmentViewModel mainFragmentViewModel;
-
-    private TextView fragmentCounterView;
+public class MainFragment extends BasicFragmentWithPresentationModel<MainFragmentViewModel, MainFragmentPresentationModel> {
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        AndroidSupportInjection.inject(this);
-        this.mainFragmentViewModel = ViewModelProviders.of(this, factory).get(MainFragmentViewModel.class);
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_main, container);
-
-        fragmentCounterView = root.findViewById(R.id.fragment_counter);
-        fragmentCounterView.setOnClickListener(v -> mainFragmentViewModel.click());
-        return root;
+    protected int getLayoutRes() {
+        return R.layout.fragment_main;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        mainFragmentViewModel.fragmentClickLiveDataMapped.observe(this, this::handleCallStatus);
-    }
-
-    private void handleCallStatus(CallStatus<String, Void> status) {
-        fragmentCounterView.setText(status.getCurrentState());
-        if (status instanceof CallStatus.Loading) {
-            UiHelper.startLoading(fragmentCounterView);
-        } else {
-            UiHelper.stopLoading(fragmentCounterView);
-        }
+    protected void bindPresentationModelToViewModel() {
+        viewModel.fragmentClickLiveDataMapped.observe(this, presentationModel);
     }
 
 }

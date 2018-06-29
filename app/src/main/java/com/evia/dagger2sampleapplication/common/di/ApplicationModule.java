@@ -5,11 +5,13 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.evia.dagger2sampleapplication.common.Logger;
 import com.evia.dagger2sampleapplication.clicker.acitivity.ActivityModule;
 import com.evia.dagger2sampleapplication.clicker.acitivity.MainActivity;
 import com.evia.dagger2sampleapplication.clicker.global.GlobalModule;
+import com.evia.dagger2sampleapplication.common.Logger;
 import com.evia.dagger2sampleapplication.common.di.scope.ActivityScope;
+import com.evia.dagger2sampleapplication.common.presentationmodel.GenericModelSupport;
+import com.evia.dagger2sampleapplication.common.presentationmodel.GenericModelSupportImpl;
 import com.evia.dagger2sampleapplication.common.viewmodel.ViewModelFactory;
 
 import javax.inject.Singleton;
@@ -36,6 +38,9 @@ public abstract class ApplicationModule {
     static SharedPreferences provideSharedPreferences(Application application) {
         return application.getSharedPreferences("prefs", MODE_PRIVATE);
     }
+
+    @Binds
+    abstract GenericModelSupport bindGenericModelSupport(GenericModelSupportImpl modelSupport);
 
     @Provides
     @Singleton

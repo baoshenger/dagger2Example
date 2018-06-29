@@ -1,9 +1,12 @@
 package com.evia.dagger2sampleapplication.clicker.fragment;
 
 import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProviders;
+import android.support.v4.app.Fragment;
 
 import com.evia.dagger2sampleapplication.clicker.ClickerResultMapper;
 import com.evia.dagger2sampleapplication.clicker.ClickerUseCase;
+import com.evia.dagger2sampleapplication.common.viewmodel.ViewModelFactory;
 import com.evia.dagger2sampleapplication.common.viewmodel.ViewModelProviderKey;
 
 import javax.inject.Named;
@@ -20,6 +23,15 @@ import dagger.multibindings.IntoMap;
  */
 @Module
 public abstract class FragmentModule {
+
+    @Provides
+    @Named("retainedModel")
+    static MainFragmentViewModel provideViewModel(Fragment fragment, ViewModelFactory factory) {
+        return ViewModelProviders.of(fragment, factory).get(MainFragmentViewModel.class);
+    }
+
+    @Binds
+    abstract Fragment bindFragment(MainFragment fragment);
 
     @Provides
     @Named("fragment")
