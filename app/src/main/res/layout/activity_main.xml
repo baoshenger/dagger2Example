@@ -35,31 +35,49 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline"/>
 
-    <fragment
-        android:id="@+id/fragment"
-        android:name="com.evia.dagger2sampleapplication.clicker.fragment.MainFragment"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginLeft="80dp"
-        android:layout_marginRight="80dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guideline2" />
+        app:layout_constraintTop_toBottomOf="@+id/guideline2">
+
+        <fragment
+            android:layout_weight="1"
+            android:id="@+id/main_fragment"
+            android:name="com.evia.dagger2sampleapplication.clicker.fragment.MainFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="80dp" />
+
+        <fragment
+            android:layout_weight="1"
+            android:id="@+id/fragment_userinput"
+            android:name="com.evia.dagger2sampleapplication.clicker.userinputfragment.UserInputFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="80dp" />
+
+
+    </LinearLayout>
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.33"  />
+        app:layout_constraintGuide_percent="0.2"  />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.66"  />
+        app:layout_constraintGuide_percent="0.4"  />
 
 </android.support.constraint.ConstraintLayout>

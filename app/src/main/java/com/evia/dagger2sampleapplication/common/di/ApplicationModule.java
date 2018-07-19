@@ -5,11 +5,9 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.evia.dagger2sampleapplication.clicker.acitivity.ActivityModule;
-import com.evia.dagger2sampleapplication.clicker.acitivity.MainActivity;
+import com.evia.dagger2sampleapplication.clicker.acitivity.ScreenMainModule;
 import com.evia.dagger2sampleapplication.clicker.global.GlobalModule;
 import com.evia.dagger2sampleapplication.common.Logger;
-import com.evia.dagger2sampleapplication.common.di.scope.ActivityScope;
 import com.evia.dagger2sampleapplication.common.presentationmodel.GenericModelSupport;
 import com.evia.dagger2sampleapplication.common.presentationmodel.GenericModelSupportImpl;
 import com.evia.dagger2sampleapplication.common.viewmodel.ViewModelFactory;
@@ -19,7 +17,6 @@ import javax.inject.Singleton;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
-import dagger.android.ContributesAndroidInjector;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -28,7 +25,7 @@ import static android.content.Context.MODE_PRIVATE;
  *
  * Created by Evgenii Iashin on 26.01.18.
  */
-@Module(includes = {GlobalModule.class})
+@Module(includes = {GlobalModule.class, ScreenMainModule.class})
 public abstract class ApplicationModule {
 
     @Binds
@@ -47,8 +44,4 @@ public abstract class ApplicationModule {
     static Logger provideLogger() {
         return entry -> Log.e("LOGGER", entry);
     }
-
-    @ActivityScope
-    @ContributesAndroidInjector(modules = {ActivityModule.class})
-    abstract MainActivity mainActivity();
 }

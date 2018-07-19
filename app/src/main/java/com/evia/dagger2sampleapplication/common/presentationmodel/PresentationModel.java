@@ -6,23 +6,19 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.io.Serializable;
-
 /**
  * VM base presentation model for shared basic functionality.
  * Created by bjoernquentin on 04.11.16.
  *
  * @param <VM> The type parameter for the action callbacks.
  */
-public class PresentationModel<VM extends ViewModel> implements Serializable {
+public class PresentationModel<VM extends ViewModel> {
 
     private static final String TAG = PresentationModel.class.getSimpleName();
 
-    private static final long serialVersionUID = 7213221473739874578L;
-
-    protected transient VM viewModel;
-    private transient OnPropertyChangedListener onPropertyChangedListener;
-    protected transient GenericModelSupport genericModelSupport;
+    protected VM viewModel;
+    private OnPropertyChangedListener onPropertyChangedListener;
+    protected GenericModelSupport genericModelSupport;
 
     public PresentationModel(VM viewModel, GenericModelSupport genericModelSupport, OnPropertyChangedListener onPropertyChangedListener) {
         this.viewModel = viewModel;

@@ -22,7 +22,8 @@ public abstract class BasicActivityWithDiSupport extends AppCompatActivity imple
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //it's important to inject after activity onCreate!
+        //it's important to inject dependencies AFTER super.onCreate(...), because of ViewModel Injection.
+        //Otherwise Activity's ViewModel can NOT be retained properly and new instance will be created each time.
         AndroidInjection.inject(this);
     }
 

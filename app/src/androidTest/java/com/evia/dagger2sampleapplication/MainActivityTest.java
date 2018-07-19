@@ -106,7 +106,7 @@ public class MainActivityTest {
 //        }
 //
 //        @ActivityScope
-//        @ContributesAndroidInjector(modules = {ActivityModule.class})
+//        @ContributesAndroidInjector(modules = {MainActivityModule.class})
 //        abstract MainActivity mainActivity();
 //    }
 
@@ -135,18 +135,18 @@ public class MainActivityTest {
         //initial state
         Espresso.onView(withId(R.id.global_counter)).check(matches(withText("Global state : 0 clicks")));
         Espresso.onView(withId(R.id.activity_counter)).check(matches(withText("Activity state : 0 clicks")));
-        Espresso.onView(withId(R.id.fragment)).check(matches(withText("Fragment state : 0 clicks")));
+        Espresso.onView(withId(R.id.main_fragment)).check(matches(withText("Fragment state : 0 clicks")));
 
 
         //first clickActivityClicker
         Espresso.onView(withId(R.id.global_counter)).perform(click()).check(matches(withText("Global state : 1 clicks")));
         Espresso.onView(withId(R.id.activity_counter)).check(matches(withText("Activity state : 0 clicks")));
-        Espresso.onView(withId(R.id.fragment)).check(matches(withText("Fragment state : 0 clicks")));
+        Espresso.onView(withId(R.id.main_fragment)).check(matches(withText("Fragment state : 0 clicks")));
 
         //second clickActivityClicker
         Espresso.onView(withId(R.id.global_counter)).perform(click()).check(matches(withText("Global state : 2 clicks")));
         Espresso.onView(withId(R.id.activity_counter)).check(matches(withText("Activity state : 0 clicks")));
-        Espresso.onView(withId(R.id.fragment)).check(matches(withText("Fragment state : 0 clicks")));
+        Espresso.onView(withId(R.id.main_fragment)).check(matches(withText("Fragment state : 0 clicks")));
     }
 
     @Test
@@ -156,17 +156,17 @@ public class MainActivityTest {
         //initial state
         Espresso.onView(withId(R.id.global_counter)).check(matches(withText("Global state : 0 clicks")));
         Espresso.onView(withId(R.id.activity_counter)).check(matches(withText("Activity state : 0 clicks")));
-        Espresso.onView(withId(R.id.fragment)).check(matches(withText("Fragment state : 0 clicks")));
+        Espresso.onView(withId(R.id.main_fragment)).check(matches(withText("Fragment state : 0 clicks")));
 
         //first clickActivityClicker
         Espresso.onView(withId(R.id.activity_counter)).perform(click()).check(matches(withText("Activity state : 1 clicks")));
         Espresso.onView(withId(R.id.global_counter)).check(matches(withText("Global state : 1 clicks")));
-        Espresso.onView(withId(R.id.fragment)).check(matches(withText("Fragment state : 0 clicks")));
+        Espresso.onView(withId(R.id.main_fragment)).check(matches(withText("Fragment state : 0 clicks")));
 
         //second clickActivityClicker
         Espresso.onView(withId(R.id.activity_counter)).perform(click()).check(matches(withText("Activity state : 2 clicks")));
         Espresso.onView(withId(R.id.global_counter)).check(matches(withText("Global state : 2 clicks")));
-        Espresso.onView(withId(R.id.fragment)).check(matches(withText("Fragment state : 0 clicks")));
+        Espresso.onView(withId(R.id.main_fragment)).check(matches(withText("Fragment state : 0 clicks")));
     }
 
     @Test
@@ -176,15 +176,15 @@ public class MainActivityTest {
         //initial state
         Espresso.onView(withId(R.id.global_counter)).check(matches(withText("Global state : 0 clicks")));
         Espresso.onView(withId(R.id.activity_counter)).check(matches(withText("Activity state : 0 clicks")));
-        Espresso.onView(withId(R.id.fragment)).check(matches(withText("Fragment state : 0 clicks")));
+        Espresso.onView(withId(R.id.main_fragment)).check(matches(withText("Fragment state : 0 clicks")));
 
         //first clickActivityClicker
-        Espresso.onView(withId(R.id.fragment)).perform(click()).check(matches(withText("Fragment state : 1 clicks")));
+        Espresso.onView(withId(R.id.main_fragment)).perform(click()).check(matches(withText("Fragment state : 1 clicks")));
         Espresso.onView(withId(R.id.activity_counter)).check(matches(withText("Activity state : 1 clicks")));
         Espresso.onView(withId(R.id.global_counter)).check(matches(withText("Global state : 1 clicks")));
 
         //second clickActivityClicker
-        Espresso.onView(withId(R.id.fragment)).perform(click()).check(matches(withText("Fragment state : 2 clicks")));
+        Espresso.onView(withId(R.id.main_fragment)).perform(click()).check(matches(withText("Fragment state : 2 clicks")));
         Espresso.onView(withId(R.id.activity_counter)).check(matches(withText("Activity state : 2 clicks")));
         Espresso.onView(withId(R.id.global_counter)).check(matches(withText("Global state : 2 clicks")));
     }

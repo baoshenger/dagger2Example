@@ -29,12 +29,6 @@ public abstract class BasicFragmentWithPresentationModel<VM extends ViewModel, P
     @Named("retainedModel")
     protected VM viewModel;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        AndroidSupportInjection.inject(this);
-    }
-
     /**
      *  Returns layout resource id for
      *
@@ -56,10 +50,20 @@ public abstract class BasicFragmentWithPresentationModel<VM extends ViewModel, P
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        //fragment injection happens here, because only at this point we can be sure that parent Activity is prepared for fragment Injection
+        AndroidSupportInjection.inject(this);
+    }
+
+    /**
+     *  VERY IMPORTANT: we can NOT access injected dependencies before this methods, please skip their usage in {@link #onViewCreated(View, Bundle)} or {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}
+     */
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
         bindPresentationModelToViewModel();
-        presentationModel.autoBind(view);
+        presentationModel.autoBind(getView());
         //no need for initial synchronisation of binding since we'll receive initial update from the ViewModel
     }
 }
