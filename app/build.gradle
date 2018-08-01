@@ -17,40 +17,35 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    buildToolsVersion '28.0.1'
 }
 
 def daggerVersion = '2.16'
 def architectureComponents = '1.1.1'
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-
     //libraries for dependency injection
     compile "com.google.dagger:dagger:$daggerVersion"
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
     androidTestCompile "com.google.dagger:dagger:$daggerVersion"
     androidTestAnnotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
-
     //Dagger-Android
     compile "com.google.dagger:dagger-android:$daggerVersion"
     compile "com.google.dagger:dagger-android-support:$daggerVersion"
     annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
-
     //architecture components
     implementation "android.arch.lifecycle:extensions:$architectureComponents"
-
     androidTestCompile "com.google.dagger:dagger-android:$daggerVersion"
     androidTestAnnotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
-
     androidTestCompile 'org.mockito:mockito-android:2.13.0'
 }
